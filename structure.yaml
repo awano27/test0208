@@ -1,0 +1,108 @@
+src:
+  structure.yaml:
+    content: |-
+      職務経歴書自動生成プラットフォーム
+      - 口コミサイトからの情報分析
+      - ハードスキルとソフトスキルの統合
+      - パーソナライズされた自己PR作成
+      
+      主要機能:
+      - 複数の口コミサイトからデータ収集
+      - AI分析による職務経歴の可視化
+      - スキル評価アルゴリズム
+      - 自己PR文章生成
+      
+      ターゲットユーザー:
+      - 転職活動中の社会人
+      - キャリア変更を検討している人
+      - 自己分析に悩む求職者
+      
+      技術的特徴:
+      - マルチソース情報統合
+      - 自然言語処理
+      - パーソナライズド推奨エンジン
+      
+      agent選定理由: claude-3-5-sonnetは複雑な文脈理解と高品質な文章生成に優れています。
+    dependency: []
+    agent: "claude-3-5-sonnet-20241022"
+    api: []
+
+  data_collection:
+    review_crawler.py:
+      content: |-
+        口コミサイトからの情報収集スクリプト
+        - Glassdoor
+        - Indeed
+        - LinkedIn
+        - Forkwell
+        
+        収集対象:
+        - 勤務先レビュー
+        - 職場環境
+        - スキル評価
+        - 同僚からの評価
+        
+        agent選定理由: gemini-1.5-proはWeb情報の効率的な収集と分析に最適です。
+      dependency: []
+      agent: "gemini-1.5-pro"
+      api: ["glassdoor-api", "indeed-api"]
+
+  skill_analysis:
+    skill_evaluator.ts:
+      content: |-
+        スキル分析アルゴリズム
+        
+        分析対象:
+        - ハードスキル
+        - ソフトスキル
+        - 業界固有スキル
+        
+        評価メトリクス:
+        - スキルレベル
+        - 経験年数
+        - 業界平均との比較
+        - 推奨キャリアパス
+        
+        agent選定理由: deepseek-reasonerは複雑なスキル分析に最適です。
+      dependency:
+        - src/data_collection/review_crawler.py
+      agent: "deepseek-reasoner"
+      api: []
+
+  pr_generation:
+    pr_writer.py:
+      content: |-
+        自己PR文章自動生成モジュール
+        
+        生成機能:
+        - パーソナライズド文章
+        - 業界別最適化
+        - 感情的要素の組み込み
+        
+        文章構成:
+        - プロフェッショナルな文体
+        - 具体的な成果の数値化
+        - 将来のキャリアビジョン
+        
+        agent選定理由: claude-3-5-sonnetは高品質な文章生成に優れています。
+      dependency:
+        - src/skill_analysis/skill_evaluator.ts
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+  frontend:
+    index.tsx:
+      content: |-
+        ユーザーインターフェース
+        
+        画面構成:
+        - スキル入力フォーム
+        - 口コミサイト連携
+        - プレビュー画面
+        - 自己PR出力
+        
+        agent選定理由: gemini-2.0-webは軽量で高速なWeb実装に適しています。
+      dependency:
+        - src/pr_generation/pr_writer.py
+      agent: "gemini-2.0-web"
+      api: []
